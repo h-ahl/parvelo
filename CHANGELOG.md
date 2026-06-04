@@ -1,11 +1,14 @@
 # CHANGELOG
 
 
-## v0.1.0 (2026-06-04)
+## v0.2.0 (2026-06-04)
 
 ### Features
 
-- Initial parvelo release
-  ([`4662af9`](https://github.com/h-ahl/parvelo/commit/4662af9726562312c6d197f23dcd73ef63897331))
+- Add workflows, update all packages, and serve on pypi
+  ([`e336c8c`](https://github.com/h-ahl/parvelo/commit/e336c8c65062d77d05d235254e4ecf9695ad2c8e))
 
-Add parallel_map utility with uv/ruff/ty tooling, tests, and CI workflows.
+
+## v0.1.0 (2026-06-04)
+
+- Initial Release
