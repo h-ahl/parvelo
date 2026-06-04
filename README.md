@@ -9,6 +9,14 @@ and optionally renders a progress bar.
 ## Install
 
 ```bash
+pip install parvelo
+```
+
+From source:
+
+```bash
+git clone https://github.com/h-ahl/parvelo.git
+cd parvelo
 uv sync --extra lint --group dev
 ```
 
