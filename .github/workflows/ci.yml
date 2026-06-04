@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  linters:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --extra lint --group dev
+
+      - name: Run ruff linter
+        run: uv run ruff check src/ tests/
+
+      - name: Run ruff formatter check
+        run: uv run ruff format --check src/ tests/
+
+      - name: Run ty type checker
+        run: uv run ty check
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --extra lint --group dev
+
+      - name: Run tests with coverage
+        run: |
+          uv run pytest --cov=src/parvelo --cov-branch --cov-report=term-missing tests/
+
+  validate-pr-title:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate PR title follows conventional commits
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            build
+            chore
+            ci
+            docs
+            feat
+            fix
+            perf
+            refactor
+            style
+            test
+          requireScope: false
+          subjectPattern: ^[A-Z].*$
+          subjectPatternError: |
+            The subject "{subject}" must start with a capital letter.

@@ -1,0 +1,60 @@
+minimum_pre_commit_version: "3.0.0"
+default_language_version:
+  python: python3.13
+
+default_stages: [pre-commit]
+
+fail_fast: false
+
+repos:
+  # Fast syntax and basic checks first
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-ast # Simply check whether files parse as valid Python
+      - id: check-merge-conflict # Check for merge conflict strings
+      - id: check-yaml # Check yaml files
+      - id: check-toml # Check TOML syntax
+      - id: check-json # Check JSON syntax
+      - id: detect-private-key # Check for private keys
+      - id: check-case-conflict # Case-insensitive filesystem conflicts
+      - id: check-added-large-files # Prevent large files
+        args: ["--maxkb=10000"]
+      - id: end-of-file-fixer # Ensure files end with newline
+      - id: trailing-whitespace # Remove trailing whitespace
+      - id: mixed-line-ending # Fix mixed line endings
+      - id: debug-statements # Check for debug statements
+      - id: check-builtin-literals # Use literal syntax for builtins
+      - id: check-docstring-first # Docstring placement check
+
+  # Ruff - fast linting and formatting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.0
+    hooks:
+      - id: ruff
+        args: ["--fix", "--exit-non-zero-on-fix", "--cache-dir=.ruff_cache"]
+      - id: ruff-format
+        args: ["--cache-dir=.ruff_cache"]
+
+  # ty - fast type checking
+  - repo: local
+    hooks:
+      - id: ty
+        name: ty
+        entry: uv run --no-sync ty check src tests
+        language: system
+        types: [python]
+        pass_filenames: false
+        require_serial: true
+
+  # Commit message linting (runs on commit-msg stage)
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.3.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.10.1
+    hooks:
+      - id: uv-lock

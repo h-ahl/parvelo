@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Environments
+.venv/
+.env
+
+# uv
+# (uv.lock is committed)
+
+# Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
