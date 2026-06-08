@@ -14,7 +14,7 @@ def square(x: int) -> int:
     return x * x
 
 
-def gen(n: int) -> Iterator[int]:
+def generator(n: int) -> Iterator[int]:
     """Yield ``0..n-1`` as a non-``Sized`` iterable."""
     yield from range(n)
 
@@ -42,7 +42,7 @@ def test_verbose_progress_bar() -> None:
 
 
 def test_non_sized_iterable_with_total() -> None:
-    result = parallel_map(square, gen(8), total=8, n_workers=1, verbose=True)
+    result = parallel_map(square, generator(8), total=8, n_workers=1, verbose=True)
     assert result == [square(i) for i in range(8)]
 
 

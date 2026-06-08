@@ -27,7 +27,6 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-  "cairosvg>=2.8.0",
   "imageio>=2.37.0",
   "ipython>=9.0.0",
   "pytest>=9.0.3",
