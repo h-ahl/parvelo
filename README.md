@@ -10,6 +10,8 @@ and optionally renders a progress bar.
 
 ## Install
 
+Requires Python 3.13.
+
 ```bash
 pip install parvelo
 ```
@@ -25,6 +27,8 @@ uv sync --extra lint --group dev
 ## Usage
 
 ```python
+import time
+
 from parvelo import Backend, parallel_map
 
 
@@ -32,10 +36,16 @@ def square(x: int) -> int:
     return x * x
 
 
+def fetch(url: str) -> str:
+    time.sleep(0.05)  # stand-in for network I/O
+    return url
+
+
 # CPU-bound work across processes (default)
 results = parallel_map(square, range(10))
 
 # I/O-bound work across threads
+urls = [f"https://example.com/{i}" for i in range(16)]
 results = parallel_map(fetch, urls, backend=Backend.THREAD, n_workers=16)
 
 # Run serially (handy for debugging), skipping executor overhead
@@ -53,7 +63,12 @@ executor down (you own its lifecycle).
 
 ```python
 from concurrent.futures import ProcessPoolExecutor
+
 from parvelo import parallel_map
+
+
+def square(x: int) -> int:
+    return x * x
 
 
 with ProcessPoolExecutor() as pool:
@@ -68,5 +83,6 @@ just setup       # create the environment
 just test        # run the test suite
 just lint        # ruff check
 just format      # ruff format
+just typecheck   # ty check
 just pre-commit  # run all pre-commit hooks
 ```

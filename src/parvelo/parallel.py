@@ -76,6 +76,9 @@ def parallel_map[T, R](
     Returns:
         Results in the same order as ``items``.
     """
+    backend = Backend(backend)
+    multiprocessing_context = MultiprocessingContext(multiprocessing_context)
+
     if total is None and isinstance(items, Sized):
         total = len(items)
 
