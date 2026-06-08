@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v0.3.1 (2026-06-08)
+
+### Chores
+
+- Update enum handling
+  ([`2dd4203`](https://github.com/h-ahl/parvelo/commit/2dd420371f883f307a44aed8d8dad3ddc482f50c))
+
+
 ## v0.3.0 (2026-06-08)
+
+### Build System
+
+- **release**: Update version to 0.3.0
+  ([`839cd38`](https://github.com/h-ahl/parvelo/commit/839cd38698748b4cc4dedfb304fcc2952930d302))
 
 ### Chores
 
