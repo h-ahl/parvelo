@@ -6,6 +6,8 @@ A tiny utility for parallel `map` with a `rich` progress bar.
 pool (CPU-bound work) or a thread pool (I/O-bound work), preserves input order,
 and optionally renders a progress bar.
 
+![parallel_map progress bar](assets/parallel_map.gif)
+
 ## Install
 
 ```bash
@@ -38,6 +40,25 @@ results = parallel_map(fetch, urls, backend=Backend.THREAD, n_workers=16)
 
 # Run serially (handy for debugging), skipping executor overhead
 results = parallel_map(square, range(10), n_workers=1)
+```
+
+### Reusing or injecting your own executor
+
+Pass an `executor` to reuse a caller-owned pool across calls instead of creating one
+each time. Any object with a `concurrent.futures`-style `map(func, *iterables, chunksize=1)`
+qualifies (matched by the `ExecutorLike` protocol), so a stdlib executor or a custom
+wrapper around a ray/jax pool both work. When `executor` is provided, `backend`,
+`n_workers`, and `multiprocessing_context` are ignored, and parvelo does not shut the
+executor down (you own its lifecycle).
+
+```python
+from concurrent.futures import ProcessPoolExecutor
+from parvelo import parallel_map
+
+
+with ProcessPoolExecutor() as pool:
+    a = parallel_map(square, range(10), executor=pool)
+    b = parallel_map(square, range(10, 20), executor=pool)  # pool reused, not recreated
 ```
 
 ## Development
