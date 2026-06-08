@@ -1,7 +1,25 @@
 # CHANGELOG
 
 
+## v0.3.0 (2026-06-08)
+
+### Chores
+
+- Update graphics
+  ([`c81e152`](https://github.com/h-ahl/parvelo/commit/c81e1527dcaf20869d5c3d8bd795b08805ba4522))
+
+### Features
+
+- Imporve the examples and add pool injection
+  ([`6735a7b`](https://github.com/h-ahl/parvelo/commit/6735a7b1247a7b3e76a1380de83bef617131b1dd))
+
+
 ## v0.2.0 (2026-06-04)
+
+### Build System
+
+- **release**: Update version to 0.2.0
+  ([`43271b0`](https://github.com/h-ahl/parvelo/commit/43271b01c07681dfc31a488288a8b21055b8675e))
 
 ### Features
 

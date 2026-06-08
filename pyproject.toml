@@ -1,6 +1,6 @@
 [project]
 name = "parvelo"
-version = "0.2.0"
+version = "0.3.0"
 description = "Parallel map with an optional rich progress bar."
 readme = "README.md"
 requires-python = ">=3.13.0, <3.14.0"
